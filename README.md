@@ -1,58 +1,99 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Cakery — Custom Cake Ordering App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## About This Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Cakery is a custom cake ordering web application built from scratch using Laravel, Inertia.js, and React. It was developed as the final project for WAD 2, demonstrating proper implementation of core Laravel concepts including authentication, middleware, authorization, eloquent relationships, and full CRUD operations.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The system has two types of users — customers and admins. Customers can browse the cake menu, place orders, and manage their profile. Admins can manage the cake menu and update order statuses.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Demo Video
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+[![Watch the Demo](https://img.shields.io/badge/Watch%20Demo-Click%20Here-ff69b4?style=for-the-badge)](https://drive.google.com/file/d/1soplhQjsNmJu_SCIypGnJHMPD6PEMaSG/view?usp=sharing)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Screenshots
 
-## Agentic Development
+### Home Page
+![Home Page](screenshots/home.png)
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Cake Menu
+![Cake Menu](screenshots/cakes.png)
 
-```bash
-composer require laravel/boost --dev
+### Order Modal
+![Order Modal](screenshots/order-modal.png)
 
-php artisan boost:install
-```
+### My Orders
+![My Orders](screenshots/my-orders.png)
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Admin — Add Cake
+![Admin Add Cake](screenshots/admin-add-cake.png)
 
-## Contributing
+### Admin — All Orders
+![Admin Orders](screenshots/admin-orders.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Tech Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Backend:** Laravel 
+- **Frontend:** React + Inertia.js
+- **Styling:** Tailwind CSS
+- **Authentication:** Laravel Breeze
+- **Database:** SQLite
+- **Cake Images (Seeder):** Unsplash
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Implemented Features
 
-## License
+### 1. CRUD Operations
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Cakes** — Admins can create, read, update, and delete cakes from the menu.
+- **Orders** — Customers can place and cancel their own orders. Admins can read all orders and update their status.
+- **Profile** — Customers can update their name, email, phone number, delivery address, and delete their account.
+
+### 2. Authentication
+
+Built with Laravel Breeze. Users must be logged in to access the cake menu, place orders, and view their profile. The system uses session-based authentication with password hashing.
+
+### 3. Middleware
+
+**`IsAdmin`** — A custom middleware applied to all `/admin/*` routes. It checks whether the authenticated user has the `admin` role before allowing access. Any non-admin user attempting to reach an admin route is blocked.
+
+### 4. Authorization (Gates, Policies, Service Providers)
+
+**Gates** are defined in `AppServiceProvider` and check if the authenticated user has the `admin` role:
+
+- `manage-inventory` — Controls who can add, edit, or delete cakes. Used inside `CakeController`.
+- `update-orders` — Controls who can view all orders and change their status. Used inside `AdminOrderController`.
+
+**`OrderPolicy`** — Handles what a customer is allowed to do with their own orders:
+
+- A customer can only **view** an order that belongs to them.
+- A customer can only **cancel** an order if it belongs to them and the status is still `pending`. Once baking has started, cancellation is no longer allowed.
+
+### 5. Eloquent Relationships
+
+- A **User** has one **Profile** (stores phone number and delivery address).
+- A **User** has many **Orders**.
+- An **Order** belongs to a **User**.
+- An **Order** belongs to many **Cakes** through a pivot table that also stores the **quantity**.
+- A **Cake** belongs to many **Orders** through the same pivot table.
+
+---
+
+### Default Accounts
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@cakery.com | password |
+| Customer | customer@cakery.com | password |
+
+---
+
+Built with love by **Janice Agnote**
