@@ -12,7 +12,7 @@ The system has two types of users — customers and admins. Customers can browse
 
 ## Demo Video
 
-[![Watch the Demo](https://img.shields.io/badge/Watch%20Demo-Click%20Here-ff69b4?style=for-the-badge)](https://drive.google.com/file/d/1soplhQjsNmJu_SCIypGnJHMPD6PEMaSG/view?usp=sharing)
+[![Watch the Demo](https://img.shields.io/badge/Watch%20Demo-Click%20Here-ff69b4?style=for-the-badge)](https://drive.google.com/file/d/1xnkQj4WisPbcxs2j0vBLvr_Xzryfy7J0/view?usp=sharing)
 
 ---
 
