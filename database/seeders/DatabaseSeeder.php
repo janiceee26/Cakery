@@ -24,5 +24,11 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
+          User::create([
+            'name' => 'Customer',
+            'email' => 'customer@cakery.com',
+            'password' => bcrypt('password'),
+            'role' => 'customer',
+        ]);
     }
 }
