@@ -18,23 +18,30 @@ The system has two types of users — customers and admins. Customers can browse
 
 ## Screenshots
 
+
 ### Home Page
+The landing page with a welcome message and buttons to log in or register.
 ![Home Page](screenshots/home.png)
 
 ### Cake Menu
+Browse all available cakes with their name, price, and photo. Admins can add, edit, or delete cakes from here.
 ![Cake Menu](screenshots/cakes.png)
 
 ### Order Modal
+Customers fill in the quantity and pickup date to place an order for a selected cake.
 ![Order Modal](screenshots/order-modal.png)
 
 ### My Orders
+Shows all orders placed by the logged-in customer along with their current status. Pending orders can be cancelled.
 ![My Orders](screenshots/my-orders.png)
 
-### Admin — Add Cake
-![Admin Add Cake](screenshots/admin-add-cake.png)
-
 ### Admin — All Orders
+Admin view of every customer order sorted by pickup date. Admins can update each order's status from here.
 ![Admin Orders](screenshots/admin-orders.png)
+
+### Admin — Add Cake
+Admin-only modal for adding a new cake to the menu with a name, description, price, and image URL.
+![Admin Add Cake](screenshots/admin-add-cake.png)
 
 ---
 
